@@ -61,3 +61,9 @@ This portfolio highlights my achievements, skills, and the projects I've worked 
 1. Clone the repository:
    ```bash
    git clone https://github.com/kawshik-ornob8/portfolio.git
+2. Open the index.html file in your browser to view the portfolio.
+   Contact Information
+   Email: kawshik15-14750@diu.edu.bd
+   LinkedIn: linkedin.com/in/kawshik-ornob8
+   GitHub: github.com/kawshik-ornob8
+   YouTube: youtube.com/@iam_kawshik
