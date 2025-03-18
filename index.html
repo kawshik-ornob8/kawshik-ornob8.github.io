@@ -930,5 +930,29 @@
     <!-- Custom Js -->
     <script src="public/js/main.js"></script>
 
+    <!-- Inspect is disabled! -->
+    <script>
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  alert('Inspect is disabled!');
+  return false;
+});
+</script>
+
+    <script>
+document.addEventListener('keydown', (e) => {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && e.key === 'I') || // Ctrl+Shift+I
+    (e.ctrlKey && e.shiftKey && e.key === 'J') || // Ctrl+Shift+J
+    (e.ctrlKey && e.shiftKey && e.key === 'C') || // Ctrl+Shift+C
+    (e.metaKey && e.altKey && e.key === 'I') // Mac: Cmd+Opt+I
+  ) {
+    e.preventDefault();
+    alert('Inspect is disabled!');
+  }
+});
+</script>
+
   </body>
 </html>
