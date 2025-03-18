@@ -934,7 +934,7 @@
     <script>
 document.addEventListener('contextmenu', (e) => {
   e.preventDefault();
-  alert('Inspect is disabled!');
+  alert('🚨 Inspect is disabled! 🚨');
   return false;
 });
 </script>
@@ -947,9 +947,10 @@ document.addEventListener('keydown', (e) => {
     (e.ctrlKey && e.shiftKey && e.key === 'J') || // Ctrl+Shift+J
     (e.ctrlKey && e.shiftKey && e.key === 'C') || // Ctrl+Shift+C
     (e.metaKey && e.altKey && e.key === 'I') // Mac: Cmd+Opt+I
+    ((e.ctrlKey || e.metaKey) && e.key === 'u')
   ) {
     e.preventDefault();
-    alert('Inspect is disabled!');
+    alert('🚨 Inspect is disabled! 🚨');
   }
 });
 </script>
