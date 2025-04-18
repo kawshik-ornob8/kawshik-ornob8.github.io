@@ -42,6 +42,17 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="public/css/main.css" />
 
+    <style>
+        .matrix-body { 
+            margin: 0; 
+            overflow: hidden; 
+            background: #000; 
+        }
+        .matrix-canvas { 
+            display: block; 
+        }
+    </style>
+
     <title>Kawshik Ahmed Ornob Portfolio</title>
   </head>
   <body id="top">
@@ -107,15 +118,7 @@
 
       <!-- Hero -->
       <div id="hero" class="hero-bg page-section">
-        <video
-          loop
-          muted
-          autoplay
-          poster="public/assets/img/hero-area.jpg"
-          class="background-video"
-        >
-          <source src="public/assets/vid/hero.mp4" type="video/mp4" />
-        </video>
+       <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
         <div class="background-video-content">
           <div class="overlay"></div>
           <div class="container">
@@ -779,5 +782,67 @@
 
     <!-- Custom Js -->
     <script src="public/js/main.js"></script>
+
+     <script>
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  alert('🚨 Inspect is disabled! 🚨');
+  return false;
+});
+</script>
+
+    <script>
+document.addEventListener('keydown', (e) => {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && e.key === 'I') || // Ctrl+Shift+I
+    (e.ctrlKey && e.shiftKey && e.key === 'J') || // Ctrl+Shift+J
+    (e.ctrlKey && e.shiftKey && e.key === 'C') || // Ctrl+Shift+C
+    (e.metaKey && e.altKey && e.key === 'I') // Mac: Cmd+Opt+I
+    ((e.ctrlKey || e.metaKey) && e.key === 'U')
+  ) {
+    e.preventDefault();
+    alert('🚨 Inspect is disabled! 🚨');
+  }
+});
+</script>
+    <script>
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
+        
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        
+        const matrixChars = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const matrixFontSize = 16;
+        const matrixColumns = matrixCanvas.width / matrixFontSize;
+        const matrixDrops = Array(Math.floor(matrixColumns)).fill(1);
+        
+        matrixCtx.font = matrixFontSize + 'px monospace';
+        
+        function drawMatrix() {
+            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            
+            matrixCtx.fillStyle = '#0f0';
+            for (let i = 0; i < matrixDrops.length; i++) {
+                const matrixText = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                matrixCtx.fillText(matrixText, i * matrixFontSize, matrixDrops[i] * matrixFontSize);
+                
+                if (matrixDrops[i] * matrixFontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    matrixDrops[i] = 0;
+                }
+                matrixDrops[i]++;
+            }
+        }
+        
+        const matrixInterval = setInterval(drawMatrix, 33);
+        
+        window.addEventListener('resize', () => {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+        });
+    </script>
+
   </body>
 </html>
