@@ -43,15 +43,23 @@
     <link rel="stylesheet" href="public/css/main.css" />
 
     <style>
-        .matrix-body { 
-            margin: 0; 
-            overflow: hidden; 
-            background: #000; 
-        }
-        .matrix-canvas { 
-            display: block; 
-        }
-    </style>
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            z-index: -1;
+          }
+      
+          .content {
+            position: relative;
+            z-index: 1;
+            color: #00ff00;
+            font-family: monospace;
+            text-align: center;
+            margin-top: 20vh;
+          }
+        </style>
 
     <title>Kawshik Ahmed Ornob Portfolio</title>
   </head>
@@ -118,7 +126,7 @@
 
       <!-- Hero -->
       <div id="hero" class="hero-bg page-section">
-       <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
+       <canvas id="matrix"></canvas>
         <div class="background-video-content">
           <div class="overlay"></div>
           <div class="container">
@@ -807,42 +815,39 @@ document.addEventListener('keydown', (e) => {
 });
 </script>
     <script>
-        const matrixCanvas = document.getElementById('matrixCanvas');
-        const matrixCtx = matrixCanvas.getContext('2d');
-        
-        matrixCanvas.width = window.innerWidth;
-        matrixCanvas.height = window.innerHeight;
-        
-        const matrixChars = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const matrixFontSize = 16;
-        const matrixColumns = matrixCanvas.width / matrixFontSize;
-        const matrixDrops = Array(Math.floor(matrixColumns)).fill(1);
-        
-        matrixCtx.font = matrixFontSize + 'px monospace';
-        
-        function drawMatrix() {
-            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            
-            matrixCtx.fillStyle = '#0f0';
-            for (let i = 0; i < matrixDrops.length; i++) {
-                const matrixText = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                matrixCtx.fillText(matrixText, i * matrixFontSize, matrixDrops[i] * matrixFontSize);
-                
-                if (matrixDrops[i] * matrixFontSize > matrixCanvas.height && Math.random() > 0.975) {
-                    matrixDrops[i] = 0;
-                }
-                matrixDrops[i]++;
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+      
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+      
+        const chars = 'アァイィウヴエカキクケコサシスセソタチツテトナニヌネノハヒフホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%^&*';
+        const matrix = chars.split('');
+      
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array.from({ length: columns }).fill(1);
+      
+        function draw() {
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+          ctx.fillStyle = '#0F0';
+          ctx.font = fontSize + 'px monospace';
+      
+          for (let i = 0; i < drops.length; i++) {
+            const text = matrix[Math.floor(Math.random() * matrix.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+              drops[i] = 0;
             }
+      
+            drops[i]++;
+          }
         }
-        
-        const matrixInterval = setInterval(drawMatrix, 33);
-        
-        window.addEventListener('resize', () => {
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-        });
-    </script>
-
+      
+        setInterval(draw, 33);
+      </script>
   </body>
 </html>
